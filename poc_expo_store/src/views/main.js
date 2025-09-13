@@ -46,7 +46,7 @@ export default function Main() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#222', // fondo oscuro para que el texto blanco resalte
+		backgroundColor: '#222',
 	},
 	navbar: {
 		height: 60,
