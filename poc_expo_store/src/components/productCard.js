@@ -1,13 +1,14 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onPress }) {
 	return (
-		<View style={styles.card}>
-			<Image source={{ uri: product.image }} style={styles.image} />
-			<Text style={styles.title}>{product.title}</Text>
-			<Text style={styles.price}>{formatPrice(product.price)}</Text>
-		</View>
+		<Pressable onPress={onPress}>
+			<View style={styles.card}>
+				<Image source={{ uri: product.image }} style={styles.image} />
+				<Text style={styles.title}>{product.title}</Text>
+				<Text style={styles.price}>{formatPrice(product.price)}</Text>
+			</View>
+		</Pressable>
 	);
 }
 const styles = StyleSheet.create({

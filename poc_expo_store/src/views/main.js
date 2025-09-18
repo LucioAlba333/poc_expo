@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
 	FlatList,
@@ -8,10 +8,13 @@ import {
 } from 'react-native';
 import { getAllProducts } from '../api/productService';
 import ProductCard from '../components/productCard';
+import ProductModal from '../components/productModal';
 
 export default function Main() {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [modalVisible, setModalVisible] = useState(false);
 
 	useEffect(() => {
 		getAllProducts().then((data) => {
@@ -20,6 +23,10 @@ export default function Main() {
 		});
 	}, []);
 
+	const handlePress = (product) => {
+		setSelectedProduct(product);
+		setModalVisible(true);
+	};
 	return (
 		<View style={styles.container}>
 			<View style={styles.navbar}>
@@ -36,9 +43,16 @@ export default function Main() {
 				<FlatList
 					data={products}
 					keyExtractor={(item) => item.id.toString()}
-					renderItem={({ item }) => <ProductCard product={item} />}
+					renderItem={({ item }) => (
+						<ProductCard product={item} onPress={() => handlePress(item)} />
+					)}
 				/>
 			)}
+			<ProductModal
+				visible={modalVisible}
+				product={selectedProduct}
+				onClose={() => setModalVisible(false)}
+			/>
 		</View>
 	);
 }
